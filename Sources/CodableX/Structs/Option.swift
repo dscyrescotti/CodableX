@@ -1,4 +1,4 @@
-/// It stores any type that conforms to `AnyCodable`
+/// It stores any type that conforms to `AnyCodable`.
 public struct Option {
     var type: AnyCodable.Type
     /// - Parameter type: Any type that conforms to `AnyCodable`
