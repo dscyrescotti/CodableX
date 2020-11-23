@@ -1,8 +1,26 @@
 import CodableX
 
+struct OneOfArrayTest: Codable {
+    @OneOfArray<AnyValue, ArrayOption> var defaultArray: [AnyValue]
+}
+
+struct DefaultTest: Codable {
+    @Default var defaultInt: Int
+    @Default var defaultCustom: DefaultCustom
+    @Default var defaultSet: Set<Int>
+}
+
 struct OneOfTest: Codable {
     @OneOf<AnyValue, DefaultOptions> var data: AnyValue
     @OneOf<AnyCustomValue, CustomOptions> var custom: AnyCustomValue
+}
+
+struct ArrayOption: Optionable {
+    let dictionary = Option([String: Int].self)
+}
+
+struct OptionalOneOfTest: Codable {
+    @OptionalOneOf<OptionalValue, DefaultOptions> var optional: OptionalValue
 }
 
 struct CustomOptions: Optionable {
@@ -29,4 +47,11 @@ class Person: AnyCodable {
     init(name: String) {
         self.name = name
     }
+}
+
+struct DefaultCustom: DefaultCodable {
+    init() {
+        self._array = OneOfArray(wrappedValue: [])
+    }
+    @OneOfArray<AnyValue, CustomOptions> var array: [AnyValue]
 }

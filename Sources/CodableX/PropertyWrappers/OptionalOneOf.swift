@@ -27,4 +27,7 @@ public struct OptionalOneOf<T: Nullable, P: Optionable>: Codable {
             try container.encodeNil()
         }
     }
+    public var projectedValue: AnyCodable? {
+        wrappedValue.value
+    }
 }
