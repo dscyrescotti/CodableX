@@ -2,14 +2,18 @@ import XCTest
 @testable import CodableX
 
 final class CodableXTests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(CodableX().text, "Hello, World!")
+    func testOneOf() {
+        let data = #"{ "data": 1, "custom": { "name": "DS" } }"#.data(using: .utf8)!
+        var decoded: OneOfTest?
+        do {
+            decoded = try JSONDecoder().decode(OneOfTest.self, from: data)
+        } catch (let error) {
+            print(error.localizedDescription)
+        }
+        XCTAssertNotNil(decoded)
     }
-
+    
     static var allTests = [
-        ("testExample", testExample),
+        ("testOneOf", testOneOf),
     ]
 }
