@@ -1,3 +1,4 @@
+/// It helps decoding and encoding for a value that has one of the specific types.
 @propertyWrapper
 public struct OneOf<T: Anyable, P: Optionable>: Codable {
     public var wrappedValue: T

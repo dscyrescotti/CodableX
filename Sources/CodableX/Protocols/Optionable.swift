@@ -1,5 +1,6 @@
 import Foundation
 
+/// It generates a dictionary of the properties of `Option` that are declared inside a `struct` which conforms to it.
 public protocol Optionable {
     init()
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-/// It is conformed to
+/// It conforms to `Codable` and is the main core protocol of `CodableX`.
 public protocol AnyCodable: Codable { }
 
 extension AnyCodable {
@@ -8,7 +8,7 @@ extension AnyCodable {
         Self.self
     }
     /// It will return its pure type that conforms to `AnyCodable`.
-    /// - Returns: Self.Type
+    /// - Returns: Type that conforms to `AnyCodable`
     public func type() -> Self.Type {
         Swift.type(of: self)
     }
