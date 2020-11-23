@@ -27,5 +27,8 @@ public struct OneOf<T: Anyable, P: Optionable>: Codable {
         var container = encoder.singleValueContainer()
         try wrappedValue.value.encode(container: &container)
     }
+    public var projectedValue: AnyCodable {
+        wrappedValue.value
+    }
 }
 
