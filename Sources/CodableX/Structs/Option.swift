@@ -1,6 +1,6 @@
 /// It stores any type that conforms to `AnyCodable`.
 public struct Option {
-    var type: AnyCodable.Type
+    internal var type: AnyCodable.Type
     /// - Parameter type: Any type that conforms to `AnyCodable`
     public init(_ type: AnyCodable.Type) {
         self.type = type
