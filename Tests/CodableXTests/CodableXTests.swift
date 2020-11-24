@@ -73,6 +73,12 @@ final class CodableXTests: XCTestCase {
         XCTAssertTrue(AnyEquatable(any1) == AnyEquatable(any2))
     }
     
+    
+    func testString2Bool() {
+        XCTAssertTrue(Bool("true")!)
+        XCTAssertFalse(Bool("false")!)
+    }
+    
     static var allTests = [
         ("testOneOf", testOneOf),
         ("testOneOfArray", testOneOfArray),
