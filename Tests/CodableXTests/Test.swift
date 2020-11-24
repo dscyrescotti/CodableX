@@ -16,7 +16,9 @@ struct OneOfTest: Codable {
 }
 
 struct ArrayOption: Optionable {
-    let dictionary = Option([String: Int].self)
+    static var options: [Option] = [
+        Option([String: Int].self)
+    ]
 }
 
 struct NullableOneOfTest: Codable {
@@ -24,9 +26,11 @@ struct NullableOneOfTest: Codable {
 }
 
 struct CustomOptions: Optionable {
-    let string = Option(String.self)
-    let int = Option(Int.self)
-    let person = Option(Person.self)
+    static var options: [Option] = [
+        Option(String.self),
+        Option(Int.self),
+        Option(Person.self)
+    ]
 }
 
 struct AnyCustomValue: Anyable {
