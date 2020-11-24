@@ -8,13 +8,10 @@ public struct OneOfArray<T: Anyable, P: Optionable>: Codable {
     public init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
         var elements: [T] = []
-        guard let options = try? P().properties() else {
-            fatalError()
-        }
         while !container.isAtEnd {
             var anyCodable: AnyCodable?
-            for option in options {
-                if let value = option.value.decode(container: &container) {
+            for option in P.options {
+                if let value = option.decode(container: &container) {
                     anyCodable = value
                     break
                 }

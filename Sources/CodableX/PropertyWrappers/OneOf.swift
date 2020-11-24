@@ -7,12 +7,9 @@ public struct OneOf<T: Anyable, P: Optionable>: Codable {
     }
     public init(from decoder: Decoder) throws {
         var container = try decoder.singleValueContainer()
-        guard let options = try? P().properties(), !options.isEmpty else {
-            fatalError()
-        }
         var anyCodable: AnyCodable?
-        for option in options {
-            if let value = option.value.decode(container: &container) {
+        for option in P.options {
+            if let value = option.decode(container: &container) {
                 anyCodable = value
                 break
             }
