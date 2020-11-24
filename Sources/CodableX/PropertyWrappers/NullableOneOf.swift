@@ -1,8 +1,8 @@
 /// It helps decoding and encoding for a value that has one of the specific types or `nil`.
 @propertyWrapper
-public struct OptionalOneOf<T: Nullable, P: Optionable>: Codable {
-    public var wrappedValue: T
-    public init(wrappedValue: T) {
+public struct NullableOneOf<T: Anyable, P: Optionable>: Codable {
+    public var wrappedValue: T?
+    public init(wrappedValue: T?) {
         self.wrappedValue = wrappedValue
     }
     public init(from decoder: Decoder) throws {
@@ -17,17 +17,20 @@ public struct OptionalOneOf<T: Nullable, P: Optionable>: Codable {
                 break
             }
         }
-        wrappedValue = T(value: anyCodable)
+        guard let any = anyCodable else {
+            return
+        }
+        wrappedValue = T(value: any)
     }
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-        if let value = wrappedValue.value {
+        if let value = wrappedValue?.value {
             try value.encode(container: &container)
         } else {
             try container.encodeNil()
         }
     }
     public var projectedValue: AnyCodable? {
-        wrappedValue.value
+        wrappedValue?.value
     }
 }

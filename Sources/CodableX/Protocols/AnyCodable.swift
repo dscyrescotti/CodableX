@@ -4,6 +4,12 @@ import Foundation
 public protocol AnyCodable: Codable { }
 
 extension AnyCodable {
+    public func toAnyEquatable() -> AnyEquatable {
+        AnyEquatable(self)
+    }
+}
+
+extension AnyCodable {
     static private func typed() -> Self.Type {
         Self.self
     }

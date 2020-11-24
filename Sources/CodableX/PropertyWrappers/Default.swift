@@ -9,7 +9,6 @@ public struct Default<T: DefaultCodable>: Codable {
         if let value = try? container.decode(T.self) {
             self.wrappedValue = value
         } else {
-            print(T())
             self.wrappedValue = T()
         }
     }

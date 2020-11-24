@@ -30,9 +30,9 @@ final class CodableXTests: XCTestCase {
     
     func testOptionalOneOf() {
         let data = #"{"optional":1}"#
-        var decoded: OptionalOneOfTest?
+        var decoded: NullableOneOfTest?
         do {
-            let decodedData = try JSONDecoder().decode(OptionalOneOfTest.self, from: data.data(using: .utf8)!)
+            let decodedData = try JSONDecoder().decode(NullableOneOfTest.self, from: data.data(using: .utf8)!)
             decoded = decodedData
             _ = try JSONEncoder().encode(decodedData)
         } catch (let error) {
@@ -54,10 +54,31 @@ final class CodableXTests: XCTestCase {
         XCTAssertNotNil(decoded)
     }
     
+    func testNull() {
+        let data = #"{"int":1}"#
+        var decoded: NullTest?
+        do {
+            let decodedData = try JSONDecoder().decode(NullTest.self, from: data.data(using: .utf8)!)
+            decoded = decodedData
+            _ = try JSONEncoder().encode(decodedData)
+        } catch (let error) {
+            fatalError(error.localizedDescription)
+        }
+        XCTAssertNotNil(decoded)
+    }
+    
+    func testEquatable() {
+        let any1: AnyCodable = EquatableTest(string: "hello", int: 1) as AnyCodable
+        let any2: AnyCodable = EquatableTest(string: "hello", int: 1) as AnyCodable
+        XCTAssertTrue(AnyEquatable(any1) == AnyEquatable(any2))
+    }
+    
     static var allTests = [
         ("testOneOf", testOneOf),
         ("testOneOfArray", testOneOfArray),
         ("testOptionalOneOf", testOptionalOneOf),
         ("testDefault", testDefault),
+        ("testNull", testNull),
+        ("testEquatable", testEquatable),
     ]
 }

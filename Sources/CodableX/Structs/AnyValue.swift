@@ -8,3 +8,9 @@ public struct AnyValue: Anyable {
         self.value = value
     }
 }
+
+extension AnyValue: Equatable {
+    public static func == (lhs: AnyValue, rhs: AnyValue) -> Bool {
+        equate(lhs.value, rhs.value)
+    }
+}

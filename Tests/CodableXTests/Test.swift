@@ -5,7 +5,7 @@ struct OneOfArrayTest: Codable {
 }
 
 struct DefaultTest: Codable {
-    @Default var defaultInt: Int
+    @Default var defaultInt: String
     @Default var defaultCustom: DefaultCustom
     @Default var defaultSet: Set<Int>
 }
@@ -19,8 +19,8 @@ struct ArrayOption: Optionable {
     let dictionary = Option([String: Int].self)
 }
 
-struct OptionalOneOfTest: Codable {
-    @OptionalOneOf<OptionalValue, DefaultOptions> var optional: OptionalValue
+struct NullableOneOfTest: Codable {
+    @NullableOneOf<AnyValue, DefaultOptions> var optional: AnyValue?
 }
 
 struct CustomOptions: Optionable {
@@ -54,4 +54,13 @@ struct DefaultCustom: DefaultCodable {
         self._array = OneOfArray(wrappedValue: [])
     }
     @OneOfArray<AnyValue, CustomOptions> var array: [AnyValue]
+}
+
+struct NullTest: Codable {
+    @Null var int: Int?
+}
+
+struct EquatableTest: AnyCodable, Hashable {
+    let string: String
+    let int: Int
 }
