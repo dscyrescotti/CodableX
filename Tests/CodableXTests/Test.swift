@@ -68,3 +68,7 @@ struct EquatableTest: AnyCodable, Hashable {
     let string: String
     let int: Int
 }
+
+struct ForceTest: Codable {
+    @Force<Double, DefaultOptions> var force: Double
+}

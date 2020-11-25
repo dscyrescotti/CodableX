@@ -9,6 +9,12 @@ extension AnyCodable {
     }
 }
 
+extension AnyCodable where Self: ForceCodable {
+    static func decode() -> (Decoder) -> ForceCodable? {
+        return { try? Self.init(from: $0) }
+    }
+}
+
 extension AnyCodable {
     static private func typed() -> Self.Type {
         Self.self

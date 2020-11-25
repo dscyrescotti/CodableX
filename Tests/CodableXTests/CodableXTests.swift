@@ -79,6 +79,19 @@ final class CodableXTests: XCTestCase {
         XCTAssertFalse(Bool("false")!)
     }
     
+    func testForce() {
+        let data = #"{"force":"1"}"#
+        var decoded: ForceTest?
+        do {
+            let decodedData = try JSONDecoder().decode(ForceTest.self, from: data.data(using: .utf8)!)
+            decoded = decodedData
+            let encoded = try JSONEncoder().encode(decodedData)
+        } catch (let error) {
+            fatalError(error.localizedDescription)
+        }
+        XCTAssertNotNil(decoded)
+    }
+    
     static var allTests = [
         ("testOneOf", testOneOf),
         ("testOneOfArray", testOneOfArray),
@@ -86,5 +99,6 @@ final class CodableXTests: XCTestCase {
         ("testDefault", testDefault),
         ("testNull", testNull),
         ("testEquatable", testEquatable),
+        ("testForce", testForce),
     ]
 }
