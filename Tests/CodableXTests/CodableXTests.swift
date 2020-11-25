@@ -16,7 +16,7 @@ final class CodableXTests: XCTestCase {
     }
     
     func testOneOfArray() {
-        let data = #"{"defaultArray":[{"name":1}]}"#
+        let data = #"{"defaultArray":[{"name":1}, 1, "2"]}"#
         var decoded: OneOfArrayTest?
         do {
             let decodedData = try JSONDecoder().decode(OneOfArrayTest.self, from: data.data(using: .utf8)!)
@@ -73,19 +73,31 @@ final class CodableXTests: XCTestCase {
         XCTAssertTrue(AnyEquatable(any1) == AnyEquatable(any2))
     }
     
-    
     func testString2Bool() {
         XCTAssertTrue(Bool("true")!)
         XCTAssertFalse(Bool("false")!)
     }
     
     func testForce() {
-        let data = #"{"force":"1"}"#
+        let data = #"{"force":1}"#
         var decoded: ForceTest?
         do {
             let decodedData = try JSONDecoder().decode(ForceTest.self, from: data.data(using: .utf8)!)
             decoded = decodedData
-            let encoded = try JSONEncoder().encode(decodedData)
+            _ = try JSONEncoder().encode(decodedData)
+        } catch (let error) {
+            fatalError(error.localizedDescription)
+        }
+        XCTAssertNotNil(decoded)
+    }
+    
+    func testCompact() {
+        let data = #"{"compacts":[1,2,3,null,4,null,5]}"#
+        var decoded: CompactTest?
+        do {
+            let decodedData = try JSONDecoder().decode(CompactTest.self, from: data.data(using: .utf8)!)
+            decoded = decodedData
+            _ = try JSONEncoder().encode(decodedData)
         } catch (let error) {
             fatalError(error.localizedDescription)
         }
@@ -100,5 +112,6 @@ final class CodableXTests: XCTestCase {
         ("testNull", testNull),
         ("testEquatable", testEquatable),
         ("testForce", testForce),
+        ("testCompact", testCompact)
     ]
 }

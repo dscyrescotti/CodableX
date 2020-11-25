@@ -18,4 +18,9 @@ extension KeyedDecodingContainer {
     public func decode<T: Codable>(_ type: Null<T>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Null<T> {
         return try decodeIfPresent(Null<T>.self, forKey: key) ?? Null<T>(wrappedValue: nil)
     }
+    
+    // MARK: - Compact
+    public func decode<T: AnyCodable>(_ type: Compact<T>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Compact<T> {
+        return try decodeIfPresent(Compact<T>.self, forKey: key) ?? Compact<T>(wrappedValue: [])
+    }
 }

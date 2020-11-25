@@ -70,5 +70,22 @@ struct EquatableTest: AnyCodable, Hashable {
 }
 
 struct ForceTest: Codable {
-    @Force<Double, DefaultOptions> var force: Double
+    @Force<ForceCustom, DefaultOptions> var force: ForceCustom
+}
+
+struct ForceCustom: ForceCodable {
+    init?(_ description: String) {
+        guard let value = Int.init(description) else {
+            return nil
+        }
+        self.int = value
+    }
+    var description: String {
+        int.description
+    }
+    var int: Int
+}
+
+struct CompactTest: Codable {
+    @Compact var compacts: [Int]
 }
