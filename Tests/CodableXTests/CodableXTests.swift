@@ -24,8 +24,8 @@ final class CodableXTests: XCTestCase {
         codableX_test(OneOfArrayTest.self, #"{"defaultArray":[{"name":1}, 1, "2"]}"#)
     }
     
-    func testOptionalOneOf() {
-        codableX_test(NullableOneOfTest.self, #"{"optional":1}"#)
+    func testNullableOneOf() {
+        codableX_test(NullableOneOfTest.self, #"{"optional":"2"}"#)
     }
     
     func testDefault() {
@@ -57,7 +57,7 @@ final class CodableXTests: XCTestCase {
     static var allTests = [
         ("testOneOf", testOneOf),
         ("testOneOfArray", testOneOfArray),
-        ("testOptionalOneOf", testOptionalOneOf),
+        ("testOptionalOneOf", testNullableOneOf),
         ("testDefault", testDefault),
         ("testNull", testNull),
         ("testEquatable", testEquatable),
