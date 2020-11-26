@@ -9,7 +9,7 @@ extension KeyedDecodingContainer {
         return try decodeIfPresent(Default<T>.self, forKey: key) ?? Default<T>(wrappedValue: T())
     }
     
-    // MARK: - OptionalOneOf
+    // MARK: - NullableOneOf
     public func decode<T: Anyable, P: Optionable>(_ type: NullableOneOf<T, P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> NullableOneOf<T, P> {
         return try decodeIfPresent(NullableOneOf<T, P>.self, forKey: key) ?? NullableOneOf<T, P>(wrappedValue: nil)
     }
@@ -22,5 +22,15 @@ extension KeyedDecodingContainer {
     // MARK: - Compact
     public func decode<T: AnyCodable>(_ type: Compact<T>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Compact<T> {
         return try decodeIfPresent(Compact<T>.self, forKey: key) ?? Compact<T>(wrappedValue: [])
+    }
+    
+    // MARK: - ForceArray
+    public func decode<T: ForceCodable, P: Optionable>(_ type: ForceArray<T, P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> ForceArray<T, P> {
+        return try decodeIfPresent(ForceArray<T, P>.self, forKey: key) ?? ForceArray<T, P>(wrappedValue: [])
+    }
+    
+    // MARK: - NullableForce
+    public func decode<T: ForceCodable, P: Optionable>(_ type: NullableForce<T, P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> NullableForce<T, P> {
+        return try decodeIfPresent(NullableForce<T, P>.self, forKey: key) ?? NullableForce<T, P>(wrappedValue: nil)
     }
 }
