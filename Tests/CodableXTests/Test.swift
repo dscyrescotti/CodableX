@@ -94,3 +94,7 @@ struct ForceArrayTest: Codable {
     @ForceArray<Bool, DefaultOptions> var bools: [Bool]
     @ForceArray<Int, DefaultOptions> var ints: [Int]
 }
+
+struct NullableForceTest: Codable {
+    @NullableForce<Bool, DefaultOptions> var bool: Bool?
+}
