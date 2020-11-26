@@ -89,3 +89,8 @@ struct ForceCustom: ForceCodable {
 struct CompactTest: Codable {
     @Compact var compacts: [Int]
 }
+
+struct ForceArrayTest: Codable {
+    @ForceArray<Bool, DefaultOptions> var bools: [Bool]
+    @ForceArray<Int, DefaultOptions> var ints: [Int]
+}
