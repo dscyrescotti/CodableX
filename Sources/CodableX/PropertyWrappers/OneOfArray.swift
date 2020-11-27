@@ -9,13 +9,6 @@ public struct OneOfArray<T: Anyable, P: Optionable>: Codable {
         var container = try decoder.unkeyedContainer()
         var elements: [T] = []
         while !container.isAtEnd {
-//            var anyCodable: AnyCodable?
-//            for option in P.options {
-//                if let value = option.decode(container: &container) {
-//                    anyCodable = value
-//                    break
-//                }
-//            }
             if let value = try? container.decode(OneOf<T, P>.self).wrappedValue {
                 elements.append(value)
             } else {

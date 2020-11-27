@@ -98,3 +98,16 @@ struct ForceArrayTest: Codable {
 struct NullableForceTest: Codable {
     @NullableForce<Bool, DefaultOptions> var bool: Bool?
 }
+
+struct DefaultBool: Defaultable {
+    static var defaultValue: some DefaultCodable = true
+}
+
+struct DefaultInt: Defaultable {
+    static var defaultValue: some DefaultCodable = 100
+}
+
+struct CustomDefaultTest: Codable {
+    @CustomDefault<Bool, DefaultBool> var bool: Bool
+    @CustomDefault<Int, DefaultBool> var int: Int
+}

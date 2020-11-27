@@ -7,16 +7,6 @@ public struct NullableOneOf<T: Anyable, P: Optionable>: Codable {
     }
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-//        var anyCodable: AnyCodable?
-//        for option in P.options {
-//            if let value = option.decode(container: &container) {
-//                anyCodable = value
-//                break
-//            }
-//        }
-//        guard let any = anyCodable else {
-//            return
-//        }
         guard let value = try? container.decode(OneOf<T, P>.self).wrappedValue else {
             return
         }

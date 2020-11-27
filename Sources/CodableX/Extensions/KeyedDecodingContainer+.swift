@@ -33,4 +33,9 @@ extension KeyedDecodingContainer {
     public func decode<T: ForceCodable, P: Optionable>(_ type: NullableForce<T, P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> NullableForce<T, P> {
         return try decodeIfPresent(NullableForce<T, P>.self, forKey: key) ?? NullableForce<T, P>(wrappedValue: nil)
     }
+    
+    // MARK: - CustomDefaul
+    public func decode<T: DefaultCodable, D: Defaultable>(_ type: CustomDefault<T, D>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> CustomDefault<T, D> {
+        return try decodeIfPresent(CustomDefault<T, D>.self, forKey: key) ?? CustomDefault<T, D>(wrappedValue: D.defaultValue as? T ?? T())
+    }
 }
