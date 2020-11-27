@@ -32,4 +32,7 @@ public struct Force<T: ForceCodable, P: Optionable>: Codable {
         }
         try original.encode(to: encoder)
     }
+    public var projectedValue: T {
+        wrappedValue
+    }
 }

@@ -22,4 +22,7 @@ public struct Compact<T: AnyCodable>: Codable {
             try? v.encode(container: &container)
         }
     }
+    public var projectedValue: [T] {
+        wrappedValue
+    }
 }

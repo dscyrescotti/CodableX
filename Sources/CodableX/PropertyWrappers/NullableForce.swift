@@ -19,4 +19,7 @@ public struct NullableForce<T: ForceCodable, P: Optionable>: Codable {
             try container.encodeNil()
         }
     }
+    public var projectedValue: T? {
+        wrappedValue
+    }
 }

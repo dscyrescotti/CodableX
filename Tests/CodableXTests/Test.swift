@@ -1,7 +1,7 @@
 import CodableX
 
 struct OneOfArrayTest: Codable {
-    @OneOfArray<AnyValue, ArrayOption> var defaultArray: [AnyValue]
+    @OneOfArray<ArrayOption> var defaultArray: [Any]
 }
 
 struct DefaultTest: Codable {
@@ -11,18 +11,20 @@ struct DefaultTest: Codable {
 }
 
 struct OneOfTest: Codable {
-    @OneOf<AnyValue, DefaultOptions> var data: AnyValue
-    @OneOf<AnyCustomValue, CustomOptions> var custom: AnyCustomValue
+    @OneOf<DefaultOptions> var data: Any
+    @OneOf<CustomOptions> var custom: Any
 }
 
 struct ArrayOption: Optionable {
     static var options: [Option] = [
-        Option([String: Int].self)
+        Option([String: Int].self),
+        Option(Int.self),
+        Option(String.self),
     ]
 }
 
 struct NullableOneOfTest: Codable {
-    @NullableOneOf<AnyValue, DefaultOptions> var optional: AnyValue?
+    @NullableOneOf<DefaultOptions> var optional: Any?
 }
 
 struct CustomOptions: Optionable {
@@ -57,7 +59,7 @@ struct DefaultCustom: DefaultCodable {
     init() {
         self._array = OneOfArray(wrappedValue: [])
     }
-    @OneOfArray<AnyValue, CustomOptions> var array: [AnyValue]
+    @OneOfArray<CustomOptions> var array: [Any]
 }
 
 struct NullTest: Codable {

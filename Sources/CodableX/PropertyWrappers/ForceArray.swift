@@ -19,4 +19,7 @@ public struct ForceArray<T: ForceCodable, P: Optionable>: Codable {
     public func encode(to encoder: Encoder) throws {
         try wrappedValue.encode(to: encoder)
     }
+    public var projectedValue: [T] {
+        wrappedValue
+    }
 }
