@@ -1,6 +1,6 @@
 /// It helps decoding and encoding an array that has different types of elements.
 @propertyWrapper
-public struct OneOfArray<P: Optionable>: Codable {
+public struct ArrayAnyable<P: OptionConfigurable>: Codable {
     public var wrappedValue: [Any]
     public init(wrappedValue: [Any]) {
         self.wrappedValue = wrappedValue
@@ -9,7 +9,7 @@ public struct OneOfArray<P: Optionable>: Codable {
         var container = try decoder.unkeyedContainer()
         var elements: [Any] = []
         while !container.isAtEnd {
-            if let value = try? container.decode(OneOf<P>.self).wrappedValue {
+            if let value = try? container.decode(Anyable<P>.self).wrappedValue {
                 elements.append(value)
             } else {
                 _ = try? container.decode(Empty.self)

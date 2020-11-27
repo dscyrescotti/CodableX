@@ -1,5 +1,5 @@
 @propertyWrapper
-public struct Default<T: DefaultCodable>: Codable {
+public struct Defaultable<T: DefaultCodable>: Codable {
     public var wrappedValue: T = T()
     public init(wrappedValue: T) {
         self.wrappedValue = wrappedValue

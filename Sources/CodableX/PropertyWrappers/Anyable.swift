@@ -1,6 +1,6 @@
 /// It helps decoding and encoding for a value that has one of the specific types.
 @propertyWrapper
-public struct OneOf<P: Optionable>: Codable {
+public struct Anyable<P: OptionConfigurable>: Codable {
     public var wrappedValue: Any
     public init(wrappedValue: Any) {
         self.wrappedValue = wrappedValue

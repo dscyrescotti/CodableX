@@ -1,7 +1,7 @@
 import Foundation
 
 @propertyWrapper
-public struct Force<T: ForceCodable, P: Optionable>: Codable {
+public struct Forcable<T: ForceCodable, P: OptionConfigurable>: Codable {
     private var type: ForceCodable.Type
     public var wrappedValue: T
     public init(wrappedValue: T) {

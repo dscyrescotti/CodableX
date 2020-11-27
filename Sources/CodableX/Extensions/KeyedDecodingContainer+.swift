@@ -1,41 +1,41 @@
 extension KeyedDecodingContainer {
     // MARK: - OneOfArray
-    public func decode<P: Optionable>(_ type: OneOfArray<P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> OneOfArray<P> {
-        return try decodeIfPresent(OneOfArray<P>.self, forKey: key) ?? OneOfArray<P>(wrappedValue: [])
+    public func decode<P: OptionConfigurable>(_ type: ArrayAnyable<P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> ArrayAnyable<P> {
+        return try decodeIfPresent(ArrayAnyable<P>.self, forKey: key) ?? ArrayAnyable<P>(wrappedValue: [])
     }
     
     // MARK: - Default
-    public func decode<T: DefaultCodable>(_ type: Default<T>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Default<T> {
-        return try decodeIfPresent(Default<T>.self, forKey: key) ?? Default<T>(wrappedValue: T())
+    public func decode<T: DefaultCodable>(_ type: Defaultable<T>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Defaultable<T> {
+        return try decodeIfPresent(Defaultable<T>.self, forKey: key) ?? Defaultable<T>(wrappedValue: T())
     }
     
     // MARK: - NullableOneOf
-    public func decode<P: Optionable>(_ type: NullableOneOf<P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> NullableOneOf<P> {
-        return try decodeIfPresent(NullableOneOf<P>.self, forKey: key) ?? NullableOneOf<P>(wrappedValue: nil)
+    public func decode<P: OptionConfigurable>(_ type: OptionalAnyable<P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> OptionalAnyable<P> {
+        return try decodeIfPresent(OptionalAnyable<P>.self, forKey: key) ?? OptionalAnyable<P>(wrappedValue: nil)
     }
     
     // MARK: - Null
-    public func decode<T: Codable>(_ type: Null<T>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Null<T> {
-        return try decodeIfPresent(Null<T>.self, forKey: key) ?? Null<T>(wrappedValue: nil)
+    public func decode<T: Codable>(_ type: Nullable<T>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Nullable<T> {
+        return try decodeIfPresent(Nullable<T>.self, forKey: key) ?? Nullable<T>(wrappedValue: nil)
     }
     
     // MARK: - Compact
-    public func decode<T: AnyCodable>(_ type: Compact<T>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Compact<T> {
-        return try decodeIfPresent(Compact<T>.self, forKey: key) ?? Compact<T>(wrappedValue: [])
+    public func decode<T: AnyCodable>(_ type: Compactable<T>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Compactable<T> {
+        return try decodeIfPresent(Compactable<T>.self, forKey: key) ?? Compactable<T>(wrappedValue: [])
     }
     
     // MARK: - ForceArray
-    public func decode<T: ForceCodable, P: Optionable>(_ type: ForceArray<T, P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> ForceArray<T, P> {
-        return try decodeIfPresent(ForceArray<T, P>.self, forKey: key) ?? ForceArray<T, P>(wrappedValue: [])
+    public func decode<T: ForceCodable, P: OptionConfigurable>(_ type: ArrayForcable<T, P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> ArrayForcable<T, P> {
+        return try decodeIfPresent(ArrayForcable<T, P>.self, forKey: key) ?? ArrayForcable<T, P>(wrappedValue: [])
     }
     
     // MARK: - NullableForce
-    public func decode<T: ForceCodable, P: Optionable>(_ type: NullableForce<T, P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> NullableForce<T, P> {
-        return try decodeIfPresent(NullableForce<T, P>.self, forKey: key) ?? NullableForce<T, P>(wrappedValue: nil)
+    public func decode<T: ForceCodable, P: OptionConfigurable>(_ type: OptionalForcable<T, P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> OptionalForcable<T, P> {
+        return try decodeIfPresent(OptionalForcable<T, P>.self, forKey: key) ?? OptionalForcable<T, P>(wrappedValue: nil)
     }
     
     // MARK: - CustomDefaul
-    public func decode<T: DefaultCodable, D: Defaultable>(_ type: CustomDefault<T, D>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> CustomDefault<T, D> {
-        return try decodeIfPresent(CustomDefault<T, D>.self, forKey: key) ?? CustomDefault<T, D>(wrappedValue: D.defaultValue as? T ?? T())
+    public func decode<T: DefaultCodable, D: DefaultConfigurable>(_ type: CustomDefaultable<T, D>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> CustomDefaultable<T, D> {
+        return try decodeIfPresent(CustomDefaultable<T, D>.self, forKey: key) ?? CustomDefaultable<T, D>(wrappedValue: D.defaultValue as? T ?? T())
     }
 }

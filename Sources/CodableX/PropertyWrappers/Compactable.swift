@@ -1,5 +1,5 @@
 @propertyWrapper
-public struct Compact<T: AnyCodable>: Codable {
+public struct Compactable<T: AnyCodable>: Codable {
     public var wrappedValue: [T]
     public init(wrappedValue: [T]) {
         self.wrappedValue = wrappedValue

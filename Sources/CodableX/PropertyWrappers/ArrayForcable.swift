@@ -1,5 +1,5 @@
 @propertyWrapper
-public struct ForceArray<T: ForceCodable, P: Optionable>: Codable {
+public struct ArrayForcable<T: ForceCodable, P: OptionConfigurable>: Codable {
     public var wrappedValue: [T]
     public init(wrappedValue: [T]) {
         self.wrappedValue = wrappedValue
@@ -8,7 +8,7 @@ public struct ForceArray<T: ForceCodable, P: Optionable>: Codable {
         var container = try decoder.unkeyedContainer()
         var elements: [T] = []
         while !container.isAtEnd {
-            if let value = try? container.decode(Force<T, P>.self).wrappedValue {
+            if let value = try? container.decode(Forcable<T, P>.self).wrappedValue {
                 elements.append(value)
             } else {
                 _ = try? container.decode(Empty.self)
