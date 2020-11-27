@@ -1,49 +1,38 @@
 import CodableX
 
 struct OneOfArrayTest: Codable {
-    @OneOfArray<AnyValue, ArrayOption> var defaultArray: [AnyValue]
+    @ArrayAnyable<ArrayOption> var defaultArray: [Any]
 }
 
 struct DefaultTest: Codable {
-    @Default var defaultInt: String
-    @Default var defaultCustom: DefaultCustom
-    @Default var defaultSet: Set<Int>
+    @Defaultable var defaultInt: String
+    @Defaultable var defaultCustom: DefaultCustom
+    @Defaultable var defaultSet: Set<Int>
 }
 
 struct OneOfTest: Codable {
-    @OneOf<AnyValue, DefaultOptions> var data: AnyValue
-    @OneOf<AnyCustomValue, CustomOptions> var custom: AnyCustomValue
+    @Anyable<DefaultOptions> var data: Any
+    @Anyable<CustomOptions> var custom: Any
 }
 
-struct ArrayOption: Optionable {
+struct ArrayOption: OptionConfigurable {
     static var options: [Option] = [
-        Option([String: Int].self)
+        Option([String: Int].self),
+        Option(Int.self),
+        Option(String.self),
     ]
 }
 
 struct NullableOneOfTest: Codable {
-    @NullableOneOf<AnyValue, DefaultOptions> var optional: AnyValue?
+    @OptionalAnyable<DefaultOptions> var optional: Any?
 }
 
-struct CustomOptions: Optionable {
+struct CustomOptions: OptionConfigurable {
     static var options: [Option] = [
         Option(String.self),
         Option(Int.self),
         Option(Person.self)
     ]
-}
-
-struct AnyCustomValue: Anyable {
-    var value: AnyCodable
-    func asInt() -> Int? {
-        value as? Int
-    }
-    func asString() -> String? {
-        value as? String
-    }
-    func asPerson() -> Person? {
-        value as? Person
-    }
 }
 
 class Person: AnyCodable {
@@ -55,16 +44,59 @@ class Person: AnyCodable {
 
 struct DefaultCustom: DefaultCodable {
     init() {
-        self._array = OneOfArray(wrappedValue: [])
+        self._array = ArrayAnyable(wrappedValue: [])
     }
-    @OneOfArray<AnyValue, CustomOptions> var array: [AnyValue]
+    @ArrayAnyable<CustomOptions> var array: [Any]
 }
 
 struct NullTest: Codable {
-    @Null var int: Int?
+    @Nullable var int: Int?
 }
 
 struct EquatableTest: AnyCodable, Hashable {
     let string: String
     let int: Int
+}
+
+struct ForceTest: Codable {
+    @Forcable<ForceCustom, DefaultOptions> var force: ForceCustom
+}
+
+struct ForceCustom: ForceCodable {
+    init?(_ description: String) {
+        guard let value = Int.init(description) else {
+            return nil
+        }
+        self.int = value
+    }
+    var description: String {
+        int.description
+    }
+    var int: Int
+}
+
+struct CompactTest: Codable {
+    @Compactable var compacts: [Int]
+}
+
+struct ForceArrayTest: Codable {
+    @ArrayForcable<Bool, DefaultOptions> var bools: [Bool]
+    @ArrayForcable<Int, DefaultOptions> var ints: [Int]
+}
+
+struct NullableForceTest: Codable {
+    @OptionalForcable<Bool, DefaultOptions> var bool: Bool?
+}
+
+struct DefaultBool: DefaultConfigurable {
+    static var defaultValue: some DefaultCodable = true
+}
+
+struct DefaultInt: DefaultConfigurable {
+    static var defaultValue: some DefaultCodable = 100
+}
+
+struct CustomDefaultTest: Codable {
+    @CustomDefaultable<Bool, DefaultBool> var bool: Bool
+    @CustomDefaultable<Int, DefaultBool> var int: Int
 }

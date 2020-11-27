@@ -7,7 +7,7 @@ public struct Option {
     }
 }
 
-extension Option {
+public extension Option {
     func decode(container: inout UnkeyedDecodingContainer) -> AnyCodable? {
         return type.decode(container: &container)
     }

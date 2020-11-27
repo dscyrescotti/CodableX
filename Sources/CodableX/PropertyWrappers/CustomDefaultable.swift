@@ -1,5 +1,5 @@
 @propertyWrapper
-public struct Default<T: DefaultCodable>: Codable {
+public struct CustomDefaultable<T: DefaultCodable, D: DefaultConfigurable>: Codable {
     public var wrappedValue: T = T()
     public init(wrappedValue: T) {
         self.wrappedValue = wrappedValue
@@ -9,7 +9,7 @@ public struct Default<T: DefaultCodable>: Codable {
         if let value = try? container.decode(T.self) {
             self.wrappedValue = value
         } else {
-            self.wrappedValue = T()
+            self.wrappedValue = D.defaultValue as? T ?? T.init()
         }
     }
     public func encode(to encoder: Encoder) throws {

@@ -2,69 +2,38 @@ import XCTest
 @testable import CodableX
 
 final class CodableXTests: XCTestCase {
-    func testOneOf() {
-        let data = #"{"data":1,"custom":{"name":"DS"}}"#
-        var decoded: OneOfTest?
+    func codableX_test<T: Codable>(_ type: T.Type, _ data: String) {
+        var decoded: T?
         do {
-            let decodedData = try JSONDecoder().decode(OneOfTest.self, from: data.data(using: .utf8)!)
+            let decodedData = try JSONDecoder().decode(T.self, from: data.data(using: .utf8)!)
             decoded = decodedData
-            _ = try JSONEncoder().encode(decodedData)
+            print(decodedData)
+            let encoded = try JSONEncoder().encode(decodedData)
+            print(String(data: encoded, encoding: .utf8)!)
         } catch (let error) {
             fatalError(error.localizedDescription)
         }
         XCTAssertNotNil(decoded)
+    }
+    
+    func testOneOf() {
+        codableX_test(OneOfTest.self, #"{"data":1,"custom":{"name":"DS"}}"#)
     }
     
     func testOneOfArray() {
-        let data = #"{"defaultArray":[{"name":1}]}"#
-        var decoded: OneOfArrayTest?
-        do {
-            let decodedData = try JSONDecoder().decode(OneOfArrayTest.self, from: data.data(using: .utf8)!)
-            decoded = decodedData
-            _ = try JSONEncoder().encode(decodedData)
-        } catch (let error) {
-            fatalError(error.localizedDescription)
-        }
-        XCTAssertNotNil(decoded)
+        codableX_test(OneOfArrayTest.self, #"{"defaultArray":[{"name":1}, 1, "2"]}"#)
     }
     
-    func testOptionalOneOf() {
-        let data = #"{"optional":1}"#
-        var decoded: NullableOneOfTest?
-        do {
-            let decodedData = try JSONDecoder().decode(NullableOneOfTest.self, from: data.data(using: .utf8)!)
-            decoded = decodedData
-            _ = try JSONEncoder().encode(decodedData)
-        } catch (let error) {
-            fatalError(error.localizedDescription)
-        }
-        XCTAssertNotNil(decoded)
+    func testNullableOneOf() {
+        codableX_test(NullableOneOfTest.self, #"{"optional":1}"#)
     }
     
     func testDefault() {
-        let data = #"{"defaultInt":3,"defaultCustom":{"array":[1,"hello"]},"defaultSet":["a"]}"#
-        var decoded: DefaultTest?
-        do {
-            let decodedData = try JSONDecoder().decode(DefaultTest.self, from: data.data(using: .utf8)!)
-            decoded = decodedData
-            _ = try JSONEncoder().encode(decodedData)
-        } catch (let error) {
-            fatalError(error.localizedDescription)
-        }
-        XCTAssertNotNil(decoded)
+        codableX_test(DefaultTest.self, #"{"defaultInt":3,"defaultCustom":{"array":[1,"hello"]},"defaultSet":["a"]}"#)
     }
     
     func testNull() {
-        let data = #"{"int":1}"#
-        var decoded: NullTest?
-        do {
-            let decodedData = try JSONDecoder().decode(NullTest.self, from: data.data(using: .utf8)!)
-            decoded = decodedData
-            _ = try JSONEncoder().encode(decodedData)
-        } catch (let error) {
-            fatalError(error.localizedDescription)
-        }
-        XCTAssertNotNil(decoded)
+        codableX_test(NullTest.self, #"{"int":1}"#)
     }
     
     func testEquatable() {
@@ -73,18 +42,37 @@ final class CodableXTests: XCTestCase {
         XCTAssertTrue(AnyEquatable(any1) == AnyEquatable(any2))
     }
     
+    func testForce() {
+        codableX_test(ForceTest.self, #"{"force":1}"#)
+    }
     
-    func testString2Bool() {
-        XCTAssertTrue(Bool("true")!)
-        XCTAssertFalse(Bool("false")!)
+    func testCompact() {
+        codableX_test(CompactTest.self, #"{"compacts":[1,2,3,null,4,null,5]}"#)
+    }
+    
+    func testForceArray() {
+        codableX_test(ForceArrayTest.self, #"{"bools":[1,"false",0,true,"1"],"ints":[1,"2",3.5,true]}"#)
+    }
+    
+    func testNullableForce() {
+        codableX_test(NullableForceTest.self, #"{"bool":1}"#)
+    }
+    
+    func testCustomDefault() {
+        codableX_test(CustomDefaultTest.self, #"{"bool": false}"#)
     }
     
     static var allTests = [
         ("testOneOf", testOneOf),
         ("testOneOfArray", testOneOfArray),
-        ("testOptionalOneOf", testOptionalOneOf),
+        ("testOptionalOneOf", testNullableOneOf),
         ("testDefault", testDefault),
         ("testNull", testNull),
         ("testEquatable", testEquatable),
+        ("testForce", testForce),
+        ("testCompact", testCompact),
+        ("testForceArray", testForceArray),
+        ("testNullableForce", testNullableForce),
+        ("testCustomDefault", testCustomDefault),
     ]
 }
