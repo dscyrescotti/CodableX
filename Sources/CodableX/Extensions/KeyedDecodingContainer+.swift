@@ -1,7 +1,17 @@
+import Foundation
+
 extension KeyedDecodingContainer {
     // MARK: - OneOfArray
     public func decode<P: OptionConfigurable>(_ type: ArrayAnyable<P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> ArrayAnyable<P> {
         return try decodeIfPresent(ArrayAnyable<P>.self, forKey: key) ?? ArrayAnyable<P>(wrappedValue: [])
+    }
+    
+    public func decode<P: OptionConfigurable>(_ type: Anyable<P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Anyable<P> {
+        
+        guard let value = try? decodeIfPresent(Anyable<P>.self, forKey: key) else {
+            throw DecodingError.typeMismatch(P.self, .init(codingPath: codingPath, debugDescription: "OneOf does not find such a kind of type in \(P.Type.self)"))
+        }
+        return value
     }
     
     // MARK: - Default
@@ -24,6 +34,10 @@ extension KeyedDecodingContainer {
         return try decodeIfPresent(Compactable<T>.self, forKey: key) ?? Compactable<T>(wrappedValue: [])
     }
     
+    public func decode(_ type: Jsonable.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Jsonable {
+        return try decodeIfPresent(Jsonable.self, forKey: key) ?? Jsonable(wrappedValue: [:])
+    }
+    
     // MARK: - ForceArray
     public func decode<T: ForceCodable, P: OptionConfigurable>(_ type: ArrayForcable<T, P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> ArrayForcable<T, P> {
         return try decodeIfPresent(ArrayForcable<T, P>.self, forKey: key) ?? ArrayForcable<T, P>(wrappedValue: [])
@@ -37,5 +51,31 @@ extension KeyedDecodingContainer {
     // MARK: - CustomDefaul
     public func decode<T: DefaultCodable, D: DefaultConfigurable>(_ type: CustomDefaultable<T, D>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> CustomDefaultable<T, D> {
         return try decodeIfPresent(CustomDefaultable<T, D>.self, forKey: key) ?? CustomDefaultable<T, D>(wrappedValue: D.defaultValue as? T ?? T())
+    }
+    
+    func decode(_ type: [String: Any].Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> [String: Any] {
+        let values = try nestedContainer(keyedBy: AnyCodingKey.self, forKey: key)
+        return try values.decode(type)
+    }
+    
+    func decode(_ type: [Any].Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> [Any] {
+       var values = try nestedUnkeyedContainer(forKey: key)
+       return try values.decode(type)
+    }
+    
+    func decode(_ type: [String: Any].Type) throws -> [String: Any] {
+        var dictionary: [String: Any] = [:]
+        for key in allKeys {
+            if try decodeNil(forKey: key) {
+                dictionary[key.stringValue] = NSNull()
+            } else if let any = try? decode(Anyable<DefaultOptions>.self, forKey: key).wrappedValue {
+                dictionary[key.stringValue] = any
+            } else if let dict = try? decode([String: Any].self, forKey: key) {
+                dictionary[key.stringValue] = dict
+            } else if let array = try? decode([Any].self, forKey: key) {
+                dictionary[key.stringValue] = array
+            }
+        }
+        return dictionary
     }
 }
