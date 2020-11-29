@@ -1,3 +1,4 @@
+/// `@ArrayJsonable` is used to decode the  array of `@Jsonable`.
 @propertyWrapper
 public struct ArrayJsonable: Codable {
     public var wrappedValue: [[String: Any]]

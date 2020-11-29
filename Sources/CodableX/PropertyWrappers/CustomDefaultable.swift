@@ -1,3 +1,4 @@
+/// `@CustomDefaultable` is literally `@Defaultable` that allows you to customize the default value of `Swift` built-in types. You need to pre-configure the default value.
 @propertyWrapper
 public struct CustomDefaultable<T: DefaultCodable, D: DefaultConfigurable>: Codable {
     public var wrappedValue: T = T()

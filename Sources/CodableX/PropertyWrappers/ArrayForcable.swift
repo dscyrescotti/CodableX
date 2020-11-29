@@ -1,3 +1,4 @@
+/// `@ArrayForcable` serves to decode and encode the array of `Forcable` values. Just like `@ArrayAnyable`, it will leave the values that are unable to be forced to decode.
 @propertyWrapper
 public struct ArrayForcable<T: ForceCodable, P: OptionConfigurable>: Codable {
     public var wrappedValue: [T]

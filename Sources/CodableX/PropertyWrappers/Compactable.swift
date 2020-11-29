@@ -1,3 +1,4 @@
+/// `@Compactable` is designed to decode the array of optional values and store values that are not null.
 @propertyWrapper
 public struct Compactable<T: AnyCodable>: Codable {
     public var wrappedValue: [T]
