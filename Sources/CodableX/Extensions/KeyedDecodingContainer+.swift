@@ -38,6 +38,10 @@ extension KeyedDecodingContainer {
         return try decodeIfPresent(Jsonable.self, forKey: key) ?? Jsonable(wrappedValue: [:])
     }
     
+    public func decode(_ type: ArrayJsonable.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> ArrayJsonable {
+        return try decodeIfPresent(ArrayJsonable.self, forKey: key) ?? ArrayJsonable(wrappedValue: [])
+    }
+    
     // MARK: - ForceArray
     public func decode<T: ForceCodable, P: OptionConfigurable>(_ type: ArrayForcable<T, P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> ArrayForcable<T, P> {
         return try decodeIfPresent(ArrayForcable<T, P>.self, forKey: key) ?? ArrayForcable<T, P>(wrappedValue: [])

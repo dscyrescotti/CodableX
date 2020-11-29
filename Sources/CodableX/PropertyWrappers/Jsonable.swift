@@ -1,5 +1,3 @@
-import Foundation
-
 @propertyWrapper
 public struct Jsonable: Codable {
     public var wrappedValue: [String: Any]
