@@ -1,3 +1,4 @@
+/// `@Nullable` serves as the traditional `Optional` (aka ?) of `Swift`. When encoding, it is able to encode `nil` as `null` in JSON.
 @propertyWrapper
 public struct Nullable<T: Codable>: Codable {
     public var wrappedValue: T?

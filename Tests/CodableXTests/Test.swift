@@ -100,3 +100,7 @@ struct CustomDefaultTest: Codable {
     @CustomDefaultable<Bool, DefaultBool> var bool: Bool
     @CustomDefaultable<Int, DefaultBool> var int: Int
 }
+
+struct JsonableTest: Codable {
+    @Jsonable var jsonObj: Any
+}

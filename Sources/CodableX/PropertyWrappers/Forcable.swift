@@ -1,5 +1,6 @@
 import Foundation
 
+/// `@Forcable` is handy to force the value to be the specific type that you set when it decodes. If it fails to force, it will end with throwing an error.
 @propertyWrapper
 public struct Forcable<T: ForceCodable, P: OptionConfigurable>: Codable {
     private var type: ForceCodable.Type

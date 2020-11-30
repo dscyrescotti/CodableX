@@ -1,7 +1,17 @@
+import Foundation
+
 extension KeyedDecodingContainer {
     // MARK: - OneOfArray
     public func decode<P: OptionConfigurable>(_ type: ArrayAnyable<P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> ArrayAnyable<P> {
         return try decodeIfPresent(ArrayAnyable<P>.self, forKey: key) ?? ArrayAnyable<P>(wrappedValue: [])
+    }
+    
+    public func decode<P: OptionConfigurable>(_ type: Anyable<P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Anyable<P> {
+        
+        guard let value = try? decodeIfPresent(Anyable<P>.self, forKey: key) else {
+            throw DecodingError.typeMismatch(P.self, .init(codingPath: codingPath, debugDescription: "OneOf does not find such a kind of type in \(P.Type.self)"))
+        }
+        return value
     }
     
     // MARK: - Default
@@ -37,5 +47,17 @@ extension KeyedDecodingContainer {
     // MARK: - CustomDefaul
     public func decode<T: DefaultCodable, D: DefaultConfigurable>(_ type: CustomDefaultable<T, D>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> CustomDefaultable<T, D> {
         return try decodeIfPresent(CustomDefaultable<T, D>.self, forKey: key) ?? CustomDefaultable<T, D>(wrappedValue: D.defaultValue as? T ?? T())
+    }
+    
+    func decode(_ type: [String: Any].Type) throws -> [String: Any] {
+        var dictionary: [String: Any] = [:]
+        for key in allKeys {
+            if let any = try? decode(Jsonable.self, forKey: key).wrappedValue {
+                dictionary[key.stringValue] = any
+            } else {
+                dictionary[key.stringValue] = NSNull()
+            }
+        }
+        return dictionary
     }
 }

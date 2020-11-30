@@ -62,6 +62,10 @@ final class CodableXTests: XCTestCase {
         codableX_test(CustomDefaultTest.self, #"{"bool": false}"#)
     }
     
+    func testJsonable() {
+        codableX_test(JsonableTest.self, #"{"jsonObj":{"one":1,"two":"two","three":null}}"#)
+    }
+    
     static var allTests = [
         ("testOneOf", testOneOf),
         ("testOneOfArray", testOneOfArray),
@@ -74,5 +78,6 @@ final class CodableXTests: XCTestCase {
         ("testForceArray", testForceArray),
         ("testNullableForce", testNullableForce),
         ("testCustomDefault", testCustomDefault),
+        ("testJsonable", testJsonable),
     ]
 }

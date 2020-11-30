@@ -1,4 +1,4 @@
-/// It helps decoding and encoding for a value that has one of the specific types or `nil`.
+/// `@OptionalAnyable` should be used for the optional of `Any` value. If the coding key is not found or the value is missing, it will be assigned nil.
 @propertyWrapper
 public struct OptionalAnyable<P: OptionConfigurable>: Codable {
     public var wrappedValue: Any?
