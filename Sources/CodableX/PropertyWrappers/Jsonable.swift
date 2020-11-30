@@ -2,7 +2,7 @@ import Foundation
 
 /// `@Jsonable` is handy to decode data into JSON object structure using dictionary of `Swift`.
 @propertyWrapper
-public struct Jsonable: AnyCodable {
+public struct Jsonable: Codable {
     public var wrappedValue: Any
     public init(wrappedValue: Any) {
         self.wrappedValue = wrappedValue
