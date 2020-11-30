@@ -5,6 +5,5 @@ public struct DefaultOptions: OptionConfigurable {
         .init(String.self),
         .init(Bool.self),
         .init(Double.self),
-        .init(Float.self)
     ]
 }

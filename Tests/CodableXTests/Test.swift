@@ -102,9 +102,5 @@ struct CustomDefaultTest: Codable {
 }
 
 struct JsonableTest: Codable {
-    @Jsonable var jsonObj: [String: Any]
-}
-
-struct ArrayJsonableTest: Codable {
-    @ArrayJsonable var jsonArray: [[String: Any]]
+    @Jsonable var jsonObj: Any
 }

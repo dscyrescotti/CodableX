@@ -34,14 +34,6 @@ extension KeyedDecodingContainer {
         return try decodeIfPresent(Compactable<T>.self, forKey: key) ?? Compactable<T>(wrappedValue: [])
     }
     
-    public func decode(_ type: Jsonable.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Jsonable {
-        return try decodeIfPresent(Jsonable.self, forKey: key) ?? Jsonable(wrappedValue: [:])
-    }
-    
-    public func decode(_ type: ArrayJsonable.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> ArrayJsonable {
-        return try decodeIfPresent(ArrayJsonable.self, forKey: key) ?? ArrayJsonable(wrappedValue: [])
-    }
-    
     // MARK: - ForceArray
     public func decode<T: ForceCodable, P: OptionConfigurable>(_ type: ArrayForcable<T, P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> ArrayForcable<T, P> {
         return try decodeIfPresent(ArrayForcable<T, P>.self, forKey: key) ?? ArrayForcable<T, P>(wrappedValue: [])
@@ -57,27 +49,13 @@ extension KeyedDecodingContainer {
         return try decodeIfPresent(CustomDefaultable<T, D>.self, forKey: key) ?? CustomDefaultable<T, D>(wrappedValue: D.defaultValue as? T ?? T())
     }
     
-    func decode(_ type: [String: Any].Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> [String: Any] {
-        let values = try nestedContainer(keyedBy: AnyCodingKey.self, forKey: key)
-        return try values.decode(type)
-    }
-    
-    func decode(_ type: [Any].Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> [Any] {
-       var values = try nestedUnkeyedContainer(forKey: key)
-       return try values.decode(type)
-    }
-    
     func decode(_ type: [String: Any].Type) throws -> [String: Any] {
         var dictionary: [String: Any] = [:]
         for key in allKeys {
-            if try decodeNil(forKey: key) {
-                dictionary[key.stringValue] = NSNull()
-            } else if let any = try? decode(Anyable<DefaultOptions>.self, forKey: key).wrappedValue {
+            if let any = try? decode(Jsonable.self, forKey: key).wrappedValue {
                 dictionary[key.stringValue] = any
-            } else if let dict = try? decode([String: Any].self, forKey: key) {
-                dictionary[key.stringValue] = dict
-            } else if let array = try? decode([Any].self, forKey: key) {
-                dictionary[key.stringValue] = array
+            } else {
+                dictionary[key.stringValue] = NSNull()
             }
         }
         return dictionary
