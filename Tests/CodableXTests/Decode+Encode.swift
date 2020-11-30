@@ -18,6 +18,9 @@ func encode<T: Codable>(_ data: T, callback: @escaping (T, Data) -> Void) {
     callback(data, encoded)
 }
 
-func decode<T: Codable>(_ type: T.Type, _ data: Data) -> T? {
-    return try? JSONDecoder().decode(type, from: data)
+func decode<T: Codable>(_ type: T.Type, _ data: Data) -> T {
+    guard let value = try? JSONDecoder().decode(type, from: data) else {
+        fatalError("Cannot decode properly")
+    }
+    return value
 }

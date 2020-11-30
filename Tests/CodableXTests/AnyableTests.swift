@@ -8,15 +8,15 @@ final class AnyableTests: XCTestCase {
             XCTAssertEqual((value.custom1 as! AnyableInt).int, 1)
             XCTAssertEqual((value.custom2 as! AnyableBool).bool, true)
             XCTAssertEqual((value.custom3 as! AnyableString).string, "I'm a string")
+            XCTAssertNil(value.optional)
         }
         encode(anyable) { value, data in
-            guard let decoded = decode(AnyableTest.self, data) else {
-                fatalError("Cannot decode properly")
-            }
+            let decoded = decode(AnyableTest.self, data) 
             XCTAssertEqual(AnyEquatable(value.defaultAny), AnyEquatable(decoded.defaultAny))
             XCTAssertEqual((value.custom1 as! AnyableString).string, (decoded.custom1 as! AnyableString).string)
             XCTAssertEqual((value.custom2 as! AnyableBool).bool, (decoded.custom2 as! AnyableBool).bool)
             XCTAssertEqual((value.custom3 as! AnyableInt).int, (decoded.custom3 as! AnyableInt).int)
+            XCTAssertNotNil(value.optional)
         }
     }
     
@@ -30,6 +30,7 @@ struct AnyableTest: Codable {
     @Anyable<CustomOptions> var custom1: Any
     @Anyable<CustomOptions> var custom2: Any
     @Anyable<CustomOptions> var custom3: Any
+    @OptionalAnyable<DefaultOptions> var optional: Any?
 }
 
 struct AnyableInt: AnyCodable {
@@ -52,6 +53,6 @@ struct CustomOptions: OptionConfigurable {
     ]
 }
 
-fileprivate let anyableTest = #"{"defaultAny":"\"StRing\"", "custom1":{"int":1}, "custom2":{"bool":true}, "custom3":{"string":"I'm a string"}}"#
+fileprivate let anyableTest = #"{"defaultAny":"\"StRing\"", "custom1":{"int":1}, "custom2":{"bool":true}, "custom3":{"string":"I'm a string"}, "optional": null}"#
 
-fileprivate let anyable = AnyableTest(defaultAny: 5.0, custom1: AnyableString(string: "Hello"), custom2: AnyableBool(bool: false), custom3: AnyableInt(int: 50))
+fileprivate let anyable = AnyableTest(defaultAny: 5.0, custom1: AnyableString(string: "Hello"), custom2: AnyableBool(bool: false), custom3: AnyableInt(int: 50), optional: 1)
