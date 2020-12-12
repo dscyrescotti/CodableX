@@ -1,6 +1,5 @@
 import Foundation
 
-/// It conforms to `Codable` and is the main core protocol of `CodableX`.
 public protocol AnyCodable: Codable { }
 
 extension AnyCodable {

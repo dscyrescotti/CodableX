@@ -28,8 +28,7 @@ public struct Forcable<T: ForceCodable, P: OptionConfigurable>: Codable {
     public func encode(to encoder: Encoder) throws {
         let string = String(describing: wrappedValue)
         guard let original = type.init(string) else {
-            let description = "Unable to encode '\(wrappedValue)' back to source type '\(type)'"
-            throw EncodingError.invalidValue(string, .init(codingPath: [], debugDescription: description))
+            throw CodableXError.unableToForce("\(type)")
         }
         try original.encode(to: encoder)
     }
