@@ -9,7 +9,7 @@ extension KeyedDecodingContainer {
     public func decode<P: OptionConfigurable>(_ type: Anyable<P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Anyable<P> {
         
         guard let value = try? decodeIfPresent(Anyable<P>.self, forKey: key) else {
-            throw DecodingError.typeMismatch(P.self, .init(codingPath: codingPath, debugDescription: "OneOf does not find such a kind of type in \(P.Type.self)"))
+            throw CodableXError.mismatch("\(P.self)")
         }
         return value
     }
@@ -44,7 +44,7 @@ extension KeyedDecodingContainer {
         return try decodeIfPresent(OptionalForcable<T, P>.self, forKey: key) ?? OptionalForcable<T, P>(wrappedValue: nil)
     }
     
-    // MARK: - CustomDefaul
+    // MARK: - CustomDefault
     public func decode<T: DefaultCodable, D: DefaultConfigurable>(_ type: CustomDefaultable<T, D>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> CustomDefaultable<T, D> {
         return try decodeIfPresent(CustomDefaultable<T, D>.self, forKey: key) ?? CustomDefaultable<T, D>(wrappedValue: D.defaultValue as? T ?? T())
     }

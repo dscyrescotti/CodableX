@@ -1,3 +1,5 @@
+///`AnyEquatable` is pretty handy to compare two `Any` values.
+
 public struct AnyEquatable {
     public let value: Any
     public init(_ value: Any) {

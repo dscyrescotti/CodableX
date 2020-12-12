@@ -1,5 +1,6 @@
 import Foundation
 
+/// `CodableXError` is the custom error type of `CodableX`.
 public enum CodableXError: Error {
     case mismatch(String)
     case unableToForce(String)
