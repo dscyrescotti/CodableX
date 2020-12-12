@@ -27,6 +27,7 @@ let decoded = try JSONDecoder().decode(AnyValue.self, from: data)
 print(decoded) // AnyValue(value: 1)
 ```
 ___Note: `DefaultOptions` only supports for `Int`, `String`, `Bool` and `Double`.___
+
 Using the custom options.
 ```swift
 struct Custom: AnyCodable {
@@ -46,6 +47,7 @@ struct AnyValue: Codable {
 }
 ```
 ___Note: All the options of structs or classes must conform to `AnyCodable`.___
+
 For the array of `Anyable` and the optional `Anyable`, you can use __`@ArrayAnyable`__ and __`@OptionalAnyable`__.
 
 ## @Forcable
