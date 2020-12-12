@@ -17,7 +17,7 @@ public struct Anyable<P: OptionConfigurable>: Codable {
         if let value = anyCodable {
             wrappedValue = value
         } else {
-            throw DecodingError.typeMismatch(P.self, .init(codingPath: container.codingPath, debugDescription: "OneOf does not find such a kind of type in \(P.Type.self)"))
+            throw CodableXError.mismatch("\(P.self)")
         }
     }
     public func encode(to encoder: Encoder) throws {
