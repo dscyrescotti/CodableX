@@ -4,10 +4,10 @@ import XCTest
 final class NullableTests: XCTestCase {
     func testForcable() {
         decode(NullableTest.self, str) { value in
-            XCTAssertNotNil(value.optional)
+            XCTAssertNil(value.optional)
             encode(value) { (v, data) in
                 let decoded = decode(NullableTest.self, data)
-                XCTAssertNotNil(decoded.optional)
+                XCTAssertNil(decoded.optional)
             }
         }
     }
