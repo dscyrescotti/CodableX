@@ -51,7 +51,7 @@ ___Note: All the options of structs or classes must conform to `AnyCodable`.___
 For the array of `Anyable` and the optional `Anyable`, you can use __`@ArrayAnyable`__ and __`@OptionalAnyable`__.
 
 ## @Forcable
-_All credits to __[BetterCodable](https://github.com/marksands/BetterCodable)__.
+All credits to __[BetterCodable](https://github.com/marksands/BetterCodable)__.
 
 `@Forcable` is useful to force the value to be the specific type that you set when it decodes.
 
