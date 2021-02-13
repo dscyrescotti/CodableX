@@ -11,6 +11,6 @@ extension Dictionary: AnyCodable where Key: Codable, Value: AnyCodable { }
 extension Set: AnyCodable where Element: AnyCodable { }
 
 // MARK: - Default Collection
-extension Array: DefaultCodable where Element: DefaultCodable { }
-extension Dictionary: DefaultCodable where Key: Codable, Value: DefaultCodable { }
-extension Set: DefaultCodable where Element: DefaultCodable { }
+extension Array: DefaultCodable where Element: AnyCodable { }
+extension Dictionary: DefaultCodable where Key: Codable, Value: AnyCodable { }
+extension Set: DefaultCodable where Element: AnyCodable { }

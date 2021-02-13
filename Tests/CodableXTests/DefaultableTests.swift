@@ -19,11 +19,12 @@ final class DefaultableTests: XCTestCase {
     }
 }
 
-struct DefaultableTest: Codable {
+struct DefaultableTest: AnyCodable {
     @Defaultable var int: Int
     @Defaultable var string: String
     @Defaultable var double: Double
     @Defaultable var bool: Bool
+    @Defaultable var dict: [String: DefaultableTest]
 }
 
 fileprivate let str = #"{}"#
