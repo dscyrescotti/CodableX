@@ -8,12 +8,14 @@ final class DefaultableTests: XCTestCase {
             XCTAssertEqual(value.string, "")
             XCTAssertEqual(value.double, 0.0)
             XCTAssertEqual(value.int, 0)
+            XCTAssertEqual(value.dict, [:])
             encode(value) { (v, data) in
                 let decoded = decode(DefaultableTest.self, data)
                 XCTAssertEqual(value.bool, decoded.bool)
                 XCTAssertEqual(value.string, decoded.string)
                 XCTAssertEqual(value.double, decoded.double)
                 XCTAssertEqual(value.int, decoded.int)
+                XCTAssertEqual(value.dict, decoded.dict)
             }
         }
     }
@@ -24,7 +26,7 @@ struct DefaultableTest: AnyCodable {
     @Defaultable var string: String
     @Defaultable var double: Double
     @Defaultable var bool: Bool
-    @Defaultable var dict: [String: DefaultableTest]
+    @Defaultable var dict: [String: Bool]
 }
 
-fileprivate let str = #"{}"#
+fileprivate let str = #"{"dict":null}"#
