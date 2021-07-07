@@ -1,8 +1,7 @@
-/// `@Anyable` is designed to decode and encode `Any` value that matches one of the types that you pre-configure. It will throw an error if its type is out of the pre-specified types.
 @propertyWrapper
-public struct Anyable<P: OptionConfigurable>: Codable {
-    public var wrappedValue: Any
-    public init(wrappedValue: Any) {
+public struct AnyValuable<P: OptionConfigurable>: Codable {
+    public var wrappedValue: AnyValue
+    public init(wrappedValue: AnyValue) {
         self.wrappedValue = wrappedValue
     }
     public init(from decoder: Decoder) throws {
@@ -15,19 +14,16 @@ public struct Anyable<P: OptionConfigurable>: Codable {
             }
         }
         if let value = anyCodable {
-            wrappedValue = value
+            wrappedValue = AnyValue(value: value)
         } else {
             throw CodableXError.mismatch("\(P.self)")
         }
     }
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-        guard let value = wrappedValue as? AnyCodable else {
-            return
-        }
-        try value.encode(container: &container)
+        try wrappedValue.value.encode(container: &container)
     }
-    public var projectedValue: Any {
+    public var projectedValue: AnyValue {
         wrappedValue
     }
 }

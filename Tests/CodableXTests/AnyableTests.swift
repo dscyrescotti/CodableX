@@ -33,15 +33,15 @@ struct AnyableTest: Codable {
     @OptionalAnyable<DefaultOptions> var optional: Any?
 }
 
-struct AnyableInt: AnyCodable {
+struct AnyableInt: AnyCodable, AnyValueWrappable {
     var int: Int
 }
 
-struct AnyableString: AnyCodable {
+struct AnyableString: AnyCodable, AnyValueWrappable {
     var string: String
 }
 
-struct AnyableBool: AnyCodable {
+struct AnyableBool: AnyCodable, AnyValueWrappable {
     var bool: Bool
 }
 
