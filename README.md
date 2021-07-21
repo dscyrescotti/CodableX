@@ -9,7 +9,9 @@
     <a href="https://swiftpackageindex.com/dscyrescotti/CodableX">
         <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdscyrescotti%2FCodableX%2Fbadge%3Ftype%3Dswift-versions" alt="Swift Compatibility">
     </a>
-    <img src="https://github.com/dscyrescotti/CodableX/actions/workflows/swift.yml/badge.svg" alt="Action Status"/>
+    <a href="https://github.com/dscyrescotti/CodableX/actions/workflows/swift.yml">
+     	<img src="https://github.com/dscyrescotti/CodableX/actions/workflows/swift.yml/badge.svg" alt="Action Status"/>
+    </a>
     <a href="LICENSE">
         <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License">
     </a>
