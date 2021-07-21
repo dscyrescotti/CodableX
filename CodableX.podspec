@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name         = "CodableX"
-    spec.version      = "0.1.1"
+    spec.version      = "0.2.0"
     spec.summary      = "Make Swift's Codable easier using Property Wrappers."
     spec.description      = <<-DESC
     CodableX provides the property wrappers that are pretty handy to decode and encode structs or classes as you desire without implementing your custom codable structs or classes from scratch.
