@@ -5,6 +5,17 @@ public struct AnyValue: Equatable {
     
     public var value: AnyCodable
     
+    public init(value: AnyCodable) {
+        self.value = value
+    }
+    
+    public init(any: Any) {
+        guard let value = any as? AnyCodable else {
+            fatalError("The value of `AnyValue` needs to conform to `AnyCodable`.")
+        }
+        self.value = value
+    }
+    
     public var type: AnyCodable.Type {
         value.type()
     }
@@ -35,5 +46,21 @@ public extension AnyValue {
             return Float(int)
         }
         return value as? Float
+    }
+    
+    func array<T>(_ : T.Type) -> [T]? {
+        return value as? [T]
+    }
+    
+    var anyArray: [Any]? {
+        return array(Any.self)
+    }
+    
+    func dict<T>(_ : T.Type) -> [AnyHashable: T]? {
+        return value as? [AnyHashable: T]
+    }
+    
+    var anyDict: [AnyHashable: Any]? {
+        return dict(Any.self)
     }
 }

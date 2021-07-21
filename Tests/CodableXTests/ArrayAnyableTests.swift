@@ -20,7 +20,7 @@ final class ArrayAnyableTests: XCTestCase {
 }
 
 struct ArrayAnyableTest: Codable {
-    @ArrayAnyable<DefaultOptions> var array:[Any]
+    @ArrayAnyable<DefaultOptions> var array: [Any]
 }
 
 fileprivate let str = #"{"array": [1,"swift",true,5.0,{"name":"DS"}]}"#
