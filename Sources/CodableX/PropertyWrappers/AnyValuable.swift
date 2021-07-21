@@ -1,3 +1,4 @@
+///`@AnyValuable` is similar to `@Anyable` but it deocdes data into `AnyValue` which stores decoded value in it instead of turning into `Any`. It provides the easy way to access value.
 @propertyWrapper
 public struct AnyValuable<P: OptionConfigurable>: Codable {
     public var wrappedValue: AnyValue

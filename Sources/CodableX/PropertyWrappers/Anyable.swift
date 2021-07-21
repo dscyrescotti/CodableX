@@ -1,4 +1,4 @@
-/// `@Anyable` is designed to decode and encode `Any` value that matches one of the types that you pre-configure. It will throw an error if its type is out of the pre-specified types.
+/// `@Anyable` is designed to decode data into `Any` value when it matches one of the types that you pre-configured. It will throw an error if its type is out of the pre-specified types.
 @propertyWrapper
 public struct Anyable<P: OptionConfigurable>: Codable {
     public var wrappedValue: Any

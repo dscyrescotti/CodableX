@@ -1,4 +1,4 @@
-/// `@ArrayAnyable` is helpful to decode and encode the array of `Any` values. If the type of the value doesn't include, it will be skipped. 
+/// `@ArrayAnyable` is helpful to decode data into the array of `Any` values. If the type of the value doesn't include, it will be omitted. 
 @propertyWrapper
 public struct ArrayAnyable<P: OptionConfigurable>: Codable {
     public var wrappedValue: [Any]

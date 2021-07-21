@@ -6,9 +6,17 @@ extension KeyedDecodingContainer {
         return try decodeIfPresent(ArrayAnyable<P>.self, forKey: key) ?? ArrayAnyable<P>(wrappedValue: [])
     }
     
+    // MARK: - Anyable
     public func decode<P: OptionConfigurable>(_ type: Anyable<P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> Anyable<P> {
-        
         guard let value = try? decodeIfPresent(Anyable<P>.self, forKey: key) else {
+            throw CodableXError.mismatch("\(P.self)")
+        }
+        return value
+    }
+    
+    // MARK: - AnyValuable
+    public func decode<P: OptionConfigurable>(_ type: AnyValuable<P>.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> AnyValuable<P> {
+        guard let value = try? decodeIfPresent(AnyValuable<P>.self, forKey: key) else {
             throw CodableXError.mismatch("\(P.self)")
         }
         return value

@@ -1,4 +1,8 @@
-public struct AnyValue {
+public struct AnyValue: Equatable {
+    public static func == (lhs: AnyValue, rhs: AnyValue) -> Bool {
+        lhs.value.toAnyEquatable() == rhs.value.toAnyEquatable()
+    }
+    
     public var value: AnyCodable
     
     public var type: AnyCodable.Type {
