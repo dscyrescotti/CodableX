@@ -11,6 +11,10 @@ final class CustomDefaultableTests: XCTestCase {
             }
         }
     }
+    
+    static var allTests = [
+        ("testCustomDefaultable", testCustomDefaultable)
+    ]
 }
 
 struct CustomDefaultableTest: Codable {

@@ -19,6 +19,11 @@ final class AnyValuableTests: XCTestCase {
             XCTAssertNotNil(decoded.option)
         }
     }
+    
+    
+    static var allTests = [
+        ("testAnyValuable", testAnyValuable)
+    ]
 }
 
 struct AnyValuableTest: Codable {

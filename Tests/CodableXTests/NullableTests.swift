@@ -11,6 +11,10 @@ final class NullableTests: XCTestCase {
             }
         }
     }
+    
+    static var allTests = [
+        ("testForcable", testForcable)
+    ]
 }
 
 struct NullableTest: Codable {

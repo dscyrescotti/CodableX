@@ -15,6 +15,10 @@ final class ForcableTests: XCTestCase {
             }
         }
     }
+    
+    static var allTests = [
+        ("testForcable", testForcable)
+    ]
 }
 
 struct ForcableTest: Codable {

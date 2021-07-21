@@ -12,6 +12,10 @@ final class JsonableTests: XCTestCase {
             XCTAssertEqual((dict["production_companies"] as! Array<Any>).count, 7)
         }
     }
+    
+    static var allTests = [
+        ("testJsonable", testJsonable)
+    ]
 }
 
 struct JsonableTest: Codable {

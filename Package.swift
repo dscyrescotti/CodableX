@@ -18,5 +18,6 @@ let package = Package(
         .testTarget(
             name: "CodableXTests",
             dependencies: ["CodableX"]),
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )
