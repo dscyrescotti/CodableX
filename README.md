@@ -19,7 +19,7 @@ dependencies: [
 ### CocoaPods
 Inside your Podfile,
 ```ruby
-pod 'CodableX'
+pod 'CodableX', :git => 'https://github.com/dscyrescotti/CodableX.git'
 ```
 
 Currently, __CodableX__ is able to be installed via __Swift Package Manager__ and __CocoaPods__.
