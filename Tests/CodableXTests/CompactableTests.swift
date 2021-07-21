@@ -11,6 +11,10 @@ final class CompactableTests: XCTestCase {
             }
         }
     }
+    
+    static var allTests = [
+        ("testCompactable", testCompactable)
+    ]
 }
 
 struct CompactableTest: Codable {

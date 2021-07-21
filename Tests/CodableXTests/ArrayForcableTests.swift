@@ -17,6 +17,10 @@ final class ArrayForcableTests: XCTestCase {
             }
         }
     }
+    
+    static var allTests = [
+        ("testArrayForcable", testArrayForcable)
+    ]
 }
 
 struct ArrayForcableTest: Codable {
