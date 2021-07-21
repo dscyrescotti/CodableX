@@ -28,4 +28,7 @@ public struct ArrayAnyValuable<P: OptionConfigurable>: Codable {
         }
     }
     
+    public var projectedValue: [AnyValue] {
+        self.wrappedValue
+    }
 }
