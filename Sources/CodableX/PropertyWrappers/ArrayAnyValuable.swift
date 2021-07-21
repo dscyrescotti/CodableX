@@ -1,3 +1,4 @@
+/// `@ArrayAnyValuable` is helpful to decode data into the array of `AnyValue` values. If the type of the value doesn't include, it will be omitted. 
 @propertyWrapper
 public struct ArrayAnyValuable<P: OptionConfigurable>: Codable {
     public var wrappedValue: [AnyValue]
