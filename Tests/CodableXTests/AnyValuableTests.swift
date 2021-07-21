@@ -4,6 +4,7 @@ import XCTest
 final class AnyValuableTests: XCTestCase {
     func testAnyValuable() {
         decode(AnyValuableTest.self, anyValuableTest) { value in
+            print(value.defaultAny.value)
             XCTAssertNotNil(value.defaultAny.string)
             XCTAssertNotNil(value.custom1.anyableInt)
             XCTAssertNotNil(value.custom2.anyableBool)
