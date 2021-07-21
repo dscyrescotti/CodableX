@@ -1,6 +1,18 @@
-
 <p  align="center">
 <img  width="650"  height="195"  src="https://github.com/dscyrescotti/CodableX/blob/main/Assets/CodableX.png?raw=true">
+</p>
+
+<p align="center">
+    <a href="https://swiftpackageindex.com/dscyrescotti/CodableX">
+        <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdscyrescotti%2FCodableX%2Fbadge%3Ftype%3Dplatforms" alt="Platform Compatibility">
+    </a>
+    <a href="https://swiftpackageindex.com/dscyrescotti/CodableX">
+        <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdscyrescotti%2FCodableX%2Fbadge%3Ftype%3Dswift-versions" alt="Swift Compatibility">
+    </a>
+    <img src="https://github.com/dscyrescotti/CodableX/actions/workflows/swift.yml/badge.svg" alt="Action Status"/>
+    <a href="LICENSE">
+        <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License">
+    </a>
 </p>
 
 # CodableX
