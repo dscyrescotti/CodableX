@@ -48,19 +48,19 @@ public extension AnyValue {
         return value as? Float
     }
     
-    func array<T>(_ : T.Type) -> [T]? {
+    func array<T: AnyCodable>(_ : T.Type) -> [T]? {
         return value as? [T]
     }
     
     var anyArray: [Any]? {
-        return array(Any.self)
+        return value as? [Any]
     }
     
-    func dict<T>(_ : T.Type) -> [AnyHashable: T]? {
+    func dict<T: AnyCodable>(_ : T.Type) -> [AnyHashable: T]? {
         return value as? [AnyHashable: T]
     }
     
     var anyDict: [AnyHashable: Any]? {
-        return dict(Any.self)
+        return value as? [AnyHashable: Any]
     }
 }
