@@ -12,7 +12,7 @@ class ArrayAnyValuableTests: XCTestCase {
             let decoded = decode(ArrayAnyValuableTest.self, data)
             XCTAssertEqual(decoded.array.count, value.array.count)
             XCTAssertEqual(decoded.array[2].string, value.array[2].string)
-            XCTAssertEqual(decoded.array[4].dict(Int.self), ["int": 1])
+            XCTAssertEqual(decoded.array[4].dict(String.self, Int.self), ["int": 1])
         }
     }
     
