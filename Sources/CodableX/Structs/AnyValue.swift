@@ -52,15 +52,7 @@ public extension AnyValue {
         return value as? [T]
     }
     
-    var anyArray: [Any]? {
-        return value as? [Any]
-    }
-    
     func dict<T: AnyCodable>(_ : T.Type) -> [AnyHashable: T]? {
         return value as? [AnyHashable: T]
-    }
-    
-    var anyDict: [AnyHashable: Any]? {
-        return value as? [AnyHashable: Any]
     }
 }
