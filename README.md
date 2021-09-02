@@ -37,7 +37,7 @@ pod 'CodableX', :git => 'https://github.com/dscyrescotti/CodableX.git'
 
 Currently, __CodableX__ is able to be installed via __Swift Package Manager__ and __CocoaPods__.
 
-## @AnyValuable _(new)_
+## @AnyValuable
 `@AnyValuable` is pretty similar to the original `@Anyable` property wrapper. It wraps decoded value inside `AnyValue` which can hold the type that conforms to `AnyCodable` and also provide easier access to value than `Any`. 
 
 ### Usage
