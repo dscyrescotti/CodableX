@@ -52,7 +52,7 @@ public extension AnyValue {
         return value as? [T]
     }
     
-    func dict<T: AnyCodable>(_ : T.Type) -> [AnyHashable: T]? {
-        return value as? [AnyHashable: T]
+    func dict<K: AnyCodable, T: AnyCodable>(_ : K.Type, _ : T.Type) -> [K: T]? {
+        return value as? [K: T]
     }
 }
