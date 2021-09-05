@@ -226,7 +226,7 @@ struct  DefaultValue: Codable {
 
 ## @Compactable
 
-`@Compactable` is designed to decode the array of optional values and store values that are not null. Its name is come from `compactMap(_:)` of Swift because it removes null and invalid values from array.
+`@Compactable` is designed to decode the array of optional values and store values that are not null. Its name comes from `compactMap(_:)` of Swift because it removes null and invalid values from array.
 
 ### Usage
 ```swift
